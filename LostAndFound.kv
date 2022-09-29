@@ -1,0 +1,236 @@
+#:import ghex kivy.utils.get_color_from_hex
+
+MainWidget :
+	
+	
+
+<MainWidget> :
+	item_pic : item_pic.__self__
+	file_id : file_id.__self__
+	item_info : item_info.__self__
+	
+	orientation : "vertical"
+			
+	MDTopAppBar :
+		title : "Lost And Found"
+		use_overflow : True
+		right_action_items : [["send", lambda x : root.sendTheData() , "send" ], ["network" , lambda x : root.connectToServer( x) , "connect"]]
+		elevation : dp(8)
+		md_bg_color : ghex("724656")
+			
+	ScrollView :
+		GridLayout :
+			size_hint_y: None
+			size_hint_x: 1
+			height: self.minimum_height
+			cols: 1
+			spacing : dp(15)
+			padding : dp(10)
+				
+			# Filename 
+			FileID :
+				size_hint : 1 , None
+				height : dp(30)
+				spacing : dp(8)
+				Label : 
+					text : "  Item Info :"
+					color : 0 , 0 , 0 , 1
+					font_size : sp(13)
+					size_hint : 0.3 , 1
+				TextInput :
+					id : file_id
+					multiline : False
+					padding : dp(5)
+				Label : 
+					text : ".loanfo    "
+					color : 0 , 0 , 0 , 1
+					font_size : sp(13)
+					size_hint : 0.2 , 1
+			
+			# Information about the item
+			ItemInformation :
+				orientation : "vertical"
+				size_hint : 1 , None
+				height : dp(300)
+				spacing : dp(2)
+				Label : 
+					markup : True
+					text : "[b][i]Information About The Item"
+					font_size : sp(24)
+					color : 0 , 0 , 0 , 1
+					size_hint : 1 , .2
+				TextInput :
+					id : item_info
+					padding : dp(10)
+					
+					
+			# Picture Getter 
+			ItemPicture :
+				orientation : "vertical"
+				size_hint : 1 , None
+				height : dp(300)
+				spacing : dp(5)
+				
+				
+				BoxLayout :
+					size_hint : 1 , .2
+					spacing : dp(10)
+					SelectPicture : 
+						text : "Upload Item Image"
+						on_release :
+							root.selectImage()
+					DeletePicture : 
+						text : "Remove Image"
+						on_release :
+							root.removeImage()
+		
+				Image :
+					id : item_pic
+					source : ""
+					allow_stretch : True
+
+<DeletePicture> :
+	background_color : 0,0,0,0
+	canvas.before :
+		Color :
+			rgba : ghex("8F284D")
+		RoundedRectangle:
+			pos : self.pos
+			size : self.size
+			radius : (20,)
+
+<SelectPicture> :
+	background_color : 0 , 0 , 0 , 0
+	canvas.before :
+		Color :
+			rgba : ghex("3C76C2")
+		RoundedRectangle :
+			pos : self.pos
+			size : self.size
+			radius : (20 ,)
+
+<ItemPicture> :
+	padding : dp(3)
+	canvas.before :
+		Color :
+			rgba : ghex("724656")
+		RoundedRectangle :
+			pos : self.pos
+			size : self.size
+			radius : (20 ,)
+
+<ItemInformation>:
+	padding : dp(3)
+	canvas.before :
+		Color :
+			rgba : ghex("724656")
+		RoundedRectangle :
+			pos : self.pos
+			size : self.size
+			radius : (20 ,)
+
+<FileID> :
+	spacing : dp(5)
+	padding : dp(2)
+	canvas.before :
+		Color :
+			rgba : ghex("724656")
+		RoundedRectangle :
+			pos : self.pos
+			size : self.size
+			radius : (20 ,)
+
+<MyButton> :
+	background_color : 0, 0 , 0 , 0
+	
+	canvas.before :
+		Color :
+			rgba : ghex("724656")
+		RoundedRectangle:
+			pos : self.pos
+			size : self.size
+			radius : ( 50 ,)
+
+<MyPopUp> :
+	title : title.__self__
+	text : text.__self__
+	
+	size_hint : 0.8 , 0.5
+	overlay_color : 0 , 0 , 0 , 0.2
+	background_color : 0, 0 , 0 , 0
+	
+	BoxLayout :
+		orientation : "vertical"
+		padding : dp(10)
+		spacing : dp(5)
+		canvas.before :
+			Color :
+				rgba : ghex("D19064")
+			RoundedRectangle :
+				pos : self.pos
+				size : self.size
+				radius : (20 ,)
+		
+		MDLabel :
+			canvas.before :
+				Color :
+					rgba : ghex("724656")
+				RoundedRectangle :
+					pos : self.pos
+					size : self.size
+					radius : (20 ,)
+			
+			id : title
+			text : ""
+			padding_x : dp(10)
+			size_hint : 1 , 0.2
+			font_size : sp(18)
+			bold : True
+			
+		MDLabel :
+			id : text
+			markup : True
+			text : ""
+			padding_x : dp(20)
+			size_hint : 1 , None
+			height : self.texture_size[1]
+		
+		MDLabel :
+			
+	
+	
+<ConnectToServer> :
+	size_hint : 0.7 , 0.1
+	ip : ip.__self__
+	port : port.__self__
+	
+	background_color : 1 , 1 , 1 , 0
+	background_down : ""
+	
+	canvas.before :
+		Color :
+			rgba : 1 , 0 , 0 , 1
+		RoundedRectangle :
+			pos : self.pos
+			size : self.size
+			radius : ( 50 ,)
+	
+	GridLayout :
+		rows : 2
+		cols : 2
+		spacing : dp(8)
+		padding : dp(10)
+		
+		Label :
+			text : "IP Addr :"
+			size_hint : 0.35 , 1
+		TextInput :
+			id : ip
+		Label :
+			text : "IP Port :"
+			size_hint : 0.35 , 1
+		TextInput :
+			id : port
+		
+		
+	
