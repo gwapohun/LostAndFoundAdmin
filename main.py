@@ -1,4 +1,5 @@
-
+#version.regex
+#__version__='1.0'
 from kivymd.app import MDApp
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.modalview import ModalView
